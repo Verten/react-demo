@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --display-error-details -p",
-    "dev": "webpack-dev-server --devtool eval --progress --colors --content-base build"
+    "build": "webpack --display-error-details -p --config webpack.prod.config.js",
+    "dev": "webpack-dev-server --devtool eval --progress --colors --content-base build --config webpack.dev.config.js"
   },
   "keywords": [
     "react"
