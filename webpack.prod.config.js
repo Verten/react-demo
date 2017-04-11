@@ -5,11 +5,11 @@ var HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, './app/index.html'),
+      template: path.resolve(__dirname, './src/index.html'),
     }),
   ],
   entry: [
-    path.resolve(__dirname, './app/main.js'),
+    path.resolve(__dirname, './src/main.js'),
   ],
   resolve: {
     extensions: ['', '.js', '.json', '.scss'],

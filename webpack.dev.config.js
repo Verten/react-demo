@@ -6,13 +6,13 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, './app/index.html'),
+      template: path.resolve(__dirname, './src/index.html'),
     }),
   ],
   entry: [
     'webpack/hot/dev-server',
     'webpack-dev-server/client?http://localhost:8080/',
-    path.resolve(__dirname, './app/main.js'),
+    path.resolve(__dirname, './src/main.js'),
   ],
   resolve: {
     extensions: ['', '.js', '.json', '.scss'],
