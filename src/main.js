@@ -1,5 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Box from './components/productBox';
+import Routes from './routes'
+import {
+  BrowserRouter as Router,
+} from 'react-router-dom'
 
-ReactDOM.render(<Box />,document.getElementById('content'));
+ReactDOM.render(
+  <Router>
+    <Routes/>
+  </Router>
+  , document.getElementById('content'));
