@@ -18,13 +18,8 @@ module.exports = {
     extensions: ['', '.js', '.json', '.scss'],
   },
   output: {
-    path: path.resolve(__dirname, 'build'),
+    path: path.resolve(__dirname, './build'),
     filename: 'bundle.js',
-  },
-  devServer: {
-    historyApiFallback: {
-      index: 'build/index.html'
-    },
   },
   module: {
     loaders: [{
