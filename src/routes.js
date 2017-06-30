@@ -4,12 +4,12 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
 import Box from './components/productBox'
-import UserComponent from './components/users'
+import UserContainer from './containers/user'
 
 const Routes = () => (
   <div>
     <Route exact path='/' component={Box}/>
-    <Route path='/users' component={UserComponent}/>
+    <Route path='/users' component={UserContainer}/>
   </div>
 )
 
