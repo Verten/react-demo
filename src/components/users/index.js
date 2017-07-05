@@ -4,6 +4,8 @@
 import React from 'react'
 import { withRouter } from 'react-router'
 import PropTypes from 'prop-types'
+import CSSmodule from 'react-css-modules'
+import styles from './usersComponent.css'
 
 class UsersComponent extends React.Component {
   static propTypes = {
@@ -17,12 +19,14 @@ class UsersComponent extends React.Component {
     super(props, context)
     this.state = {
       userList: [],
+      user: null,
     }
+    this.handleSelectUser = this.handleSelectUser.bind(this)
   }
 
   componentWillMount() {
     const { actions } = this.props
-    actions.getUsers()
+    actions.fetchUsersRequest()
   }
 
   componentDidMount() {
@@ -30,37 +34,62 @@ class UsersComponent extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { isProcessing, userList, error } = nextProps
+    const { isProcessing, userList, user, error } = nextProps
     if (!isProcessing) {
       if (error) {
         console.error(error)
       } else {
         this.setState({
           userList,
+          user,
         })
       }
     }
   }
 
+  handleSelectUser(userId) {
+    const { actions } = this.props
+    actions.fetchUserByIdRequest(userId)
+  }
+
   renderUserList(userList) {
     let items = []
-    userList.map(user => {
+    userList && userList.map(user => {
       items.push(
-        <div key={user.id}>
-          <img src={user.avatar_url} alt={user.login}/>
-          <div>{user.login}</div>
+        <div styleName='userList_Item' key={user.id}>
+          <img src={user.avatar_url} alt={user.login} onClick={() => this.handleSelectUser(user.login)}/>
+          <div styleName='userList_Item_name'>{user.login}</div>
         </div>
       )
     })
     return items
   }
 
-  render() {
-    const { userList } = this.state
+  renderUserDetail(user) {
+    if (!user) {
+      return
+    }
     return (
-      <div>{this.renderUserList(userList)}</div>
+      <div styleName='userDetail'>
+        <div styleName='userDetail_avatar'>
+          <img src={user.avatar_url} alt={user.login}/>
+        </div>
+        <div styleName='userDetail_info'>
+          <div styleName='userDetail_info_name'>{user.login}</div>
+        </div>
+      </div>
+    )
+  }
+
+  render() {
+    const { userList, user } = this.state
+    return (
+      <div styleName='userList'>
+        {this.renderUserList(userList)}
+        {this.renderUserDetail(user)}
+      </div>
     )
   }
 }
 
-export default withRouter(UsersComponent)
+export default withRouter(CSSmodule(UsersComponent, styles))

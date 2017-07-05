@@ -38,10 +38,11 @@ export class UserContainer extends React.Component {
 
 function mapStateToProps(state) {
   const { userReducer } = state
-  const { isProcessing, userList, error } = userReducer.toJS()
+  const { isProcessing, userList, user, error } = userReducer.toJS()
   return {
     isProcessing,
     error,
+    user,
     userList,
   }
 }

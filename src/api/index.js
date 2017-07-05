@@ -10,8 +10,14 @@ const API = {
   /**
    * @return {string}
    */
-  FETCH_USERS() {
+  FETCH_USERS_REQUEST() {
     return `${host}${contextPath}${fetchUsers}`
+  },
+  /**
+   * @return {string}
+   */
+  FETCH_USER_BY_ID_REQUEST(id) {
+    return `${host}${contextPath}${fetchUsers}/${id}`
   },
 }
 

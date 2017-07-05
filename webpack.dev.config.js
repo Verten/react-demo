@@ -27,13 +27,22 @@ module.exports = {
     },
   },
   module: {
-    loaders: [{
-      test: /\.jsx?$/,
-      exclude: path.resolve(__dirname, 'node_modules'),
-      loaders: [
-        'react-hot-loader',
-        'babel-loader'
-      ]
-    }]
+    loaders: [
+      {
+        test: /\.jsx?$/,
+        exclude: path.resolve(__dirname, 'node_modules'),
+        loaders: [
+          'react-hot-loader',
+          'babel-loader'
+        ]
+      },
+      {
+        test: /\.css$/,
+        loaders: [
+          'style?sourceMap',
+          'css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]'
+        ]
+      }
+    ]
   }
 };

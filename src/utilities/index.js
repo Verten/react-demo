@@ -28,32 +28,19 @@ export function parseJSON(response) {
  * @param onRequestFailure The callback function to create request failure action.
  *                 The function expects error as its argument.
  */
-export function callAPI(url, config, request, onRequestSuccess, onRequestFailure) {
-  return dispatch => {
-    dispatch(request)
-    return fetch(url, config)
-      .then(checkStatus)
-      .then(parseJSON)
-      .then(json => {
-        dispatch(onRequestSuccess(json))
-        //dispatch({ type: FINISH })
-      }).catch(error => {
-        const response = error.response
-        if (response === undefined) {
-          dispatch(onRequestFailure(error))
-        } else {
-          error.status = response.status
-          error.statusText = response.statusText
-          response.text().then(text => {
-            try {
-              const json = JSON.parse(text)
-              Object.assign(error, json)
-            } catch (ex) {
-              error.message = text
-            }
-            dispatch(onRequestFailure(error))
-          })
-        }
-      })
+export function callAPI(url, config) {
+  const defaultConfig = {
+    mode: 'cors',
+    method: 'GET',
+    headers: {
+      Accept: 'application/vnd.github.v3+json',
+      'Content-Type': 'application/json',
+    },
   }
+  return fetch(url, Object.assign({}, defaultConfig, config))
+    .then(checkStatus)
+    .then(parseJSON)
+    .then(json => {
+      return json
+    })
 }
