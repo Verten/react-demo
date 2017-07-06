@@ -1,45 +1,42 @@
 /**
  * Created by ebinhon on 7/5/2017.
  */
-import { take, call, put, fork } from 'redux-saga/effects'
-import {
-  fetchUsersSuccess, fetchUsersRequest, fetchUsersError,
-  fetchUserByIdSuccess, fetchUserByIdRequest, fetchUserByIdError,
-} from '../../actions/user'
+import { call, put, fork, takeLatest } from 'redux-saga/effects'
+import * as Actions from '../../actions/user'
 import * as Utilities from '../../utilities'
 import API from '../../api'
 
-export function* fetchUsers() {
-  while (true) {
-    const url = API[fetchUsersRequest().type]()
-    yield take(fetchUsersRequest().type)
-    yield put(fetchUsersRequest())
-    try {
-      const users = yield call(Utilities.callAPI, url)
-      yield put(fetchUsersSuccess(users))
-    } catch (e) {
-      yield put(fetchUsersError(e))
-    }
+function* fetchUsers() {
+  const url = API[Actions.fetchUsersRequest().type]()
+  try {
+    const users = yield call(Utilities.callAPI, url)
+    yield put(Actions.fetchUsersSuccess(users))
+  } catch (e) {
+    yield put(Actions.fetchUsersError(e))
   }
 }
 
-export function* fetchUserById() {
-  while (true) {
-    const action = yield take(fetchUserByIdRequest().type)
-    const url = API[fetchUserByIdRequest().type](action.id)
-    yield put(fetchUserByIdRequest(action.id))
-    try {
-      const user = yield call(Utilities.callAPI, url)
-      yield put(fetchUserByIdSuccess(user))
-    } catch (e) {
-      yield put(fetchUserByIdError(e))
-    }
+function* fetchUserById(action) {
+  const url = API[Actions.fetchUserByIdRequest().type](action.id)
+  try {
+    const user = yield call(Utilities.callAPI, url)
+    yield put(Actions.fetchUserByIdSuccess(user))
+  } catch (e) {
+    yield put(Actions.fetchUserByIdError(e))
   }
+}
+
+export function* watchFetchUsers() {
+  yield takeLatest(Actions.fetchUsersRequest().type, fetchUsers)
+}
+
+export function* watchFetchUserById() {
+  yield takeLatest(Actions.fetchUserByIdRequest().type, fetchUserById)
 }
 
 export default function* userRootSaga() {
   yield [
-    fork(fetchUsers),
-    fork(fetchUserById)
+    fork(watchFetchUsers),
+    fork(watchFetchUserById)
   ]
 }
