@@ -27,6 +27,9 @@ export default class productBox extends React.Component {
         Hello World!
         <br/>
         Hello React!
+        <p>
+          <Link to='/users' >Github Users</Link>
+        </p>
       </div>
     );
   }
