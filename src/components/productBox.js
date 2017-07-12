@@ -14,11 +14,23 @@ export default class productBox extends React.Component {
 
   constructor() {
     super();
-    this.state = {}
+    this.state = {
+      counter: 0,
+    }
+    this.hangdleIncrease = this.hangdleIncrease.bind(this)
+    this.handleReduce = this.handleReduce.bind(this)
   }
 
-  componentDidMount() {
+  hangdleIncrease() {
+    this.setState({
+      counter: ++this.state.counter,
+    })
+  }
 
+  handleReduce() {
+    this.setState({
+      counter: --this.state.counter,
+    })
   }
 
   render() {
@@ -27,6 +39,11 @@ export default class productBox extends React.Component {
         Hello World!
         <br/>
         Hello React!
+        <div>
+          <p>counter: {this.state.counter}</p>
+          <button onClick={this.hangdleIncrease}>+1</button>
+          <button onClick={this.handleReduce}>-1</button>
+        </div>
       </div>
     );
   }
