@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 
 export default class productBox extends React.Component {
   static propTypes = {
@@ -28,7 +29,7 @@ export default class productBox extends React.Component {
         <br/>
         Hello React!
         <p>
-          <Link to='/users' >Github Users</Link>
+          <Link to='/users'>Github Users</Link>
         </p>
       </div>
     );
