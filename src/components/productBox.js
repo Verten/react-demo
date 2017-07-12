@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 
 export default class productBox extends React.Component {
   static propTypes = {
