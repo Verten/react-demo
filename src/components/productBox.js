@@ -30,6 +30,7 @@ export default class productBox extends React.Component {
         Hello React!
         <p>
           <Link to='/users' >Users</Link>
+          <Link to='/users/detail' >Users Detail</Link>
         </p>
       </div>
     );
